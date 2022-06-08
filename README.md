@@ -33,52 +33,52 @@ __Note<sup>2</sup>__：按照 [Focus](./tools/Focus) 目录中的说明，可以
 
 ## 引言
 
-FOCUS is a context-aware collaborative-filtering recommendation system that exploits cross relationships among OSS projects to suggest the inclusion of additional API invocations and concrete API usage patterns. The current implementation targets Java code specifically.
+&ensp;&ensp;FOCUS 是一个基于上下文感知的协同过滤推荐系统，它利用开源项目之间的交叉关系来推荐 API 调用和具体的 API 使用模式（当前实现专门针对 Java 代码）。
 
-Implementing a collaborative-filtering recommendation system requires to assess the similarity of two customers, i.e., two software projects. Existing approaches consider that any two projects using an API of interest are equally valuable sources of knowledge. Instead, we postulate that not all projects are equal when it comes to recommending usage patterns: a project that is highly similar to the project currently being developed should provide higher quality patterns than a highly dissimilar one.
+&ensp;&ensp;该协同过滤推荐系统需要评估两个软件项目的相似度。现有方法认为任何两个使用感兴趣的 API 的项目都是同等价值的知识来源。相反，论文假设并不是所有的项目在推荐使用模式时都是平等的：一个与当前开发的项目高度相似的项目应该比一个高度不同的项目提供更高质量的模式。
 
-Our collaborative-filtering recommendation system attempts to narrow down the search scope by only considering the projects that are the most similar to the active project. Therefore, methods that are typically used conjointly by similar projects in similar contexts tend to be recommended first.
+&ensp;&ensp;FOCUS 试图通过只考虑与活动项目最相似的项目来缩小搜索范围。因此，在类似的上下文中，通常由类似项目共同使用的方法往往会被首先推荐。
 
-We incorporate these ideas in a new context-aware collaborative filtering recommender system that mines OSS repositories to provide developers with API **F**uncti**O**n **C**alls and **US**age patterns: FOCUS. Our approach employs a new model to represent mutual relationships between projects and collaboratively mines API usage from the most similar projects.
+&ensp;&ensp;将以上想法整合到 FOCUS 中，该系统通过挖掘开源存储库，为开发者推荐 API 函数调用和使用模式。FOCUS 使用了一个新模型来表示项目之间的相互关系，并从最相似的项目中挖掘 API 使用情况。
 
 ## FOCUS 推荐示例
 
-By means of the IDE, FOCUS provides two main types of recommendations in two separate tabs as shown in the picture below. By the first tab, it displays a ranked list of API calls while by the second tab, there are real snippets of code. As a matter of fact, our tool only provides and presents recommendations, and integrating the recommended APIs or source code is purely at the developers' discretion, i.e., they will decide whether and how to adopt the recommended API calls and/or code snippets. With the recommendations provided by FOCUS, developers can embed into their IDE by copying and pasting fragments of the recommended code into the editing window.
+基于 IDE, FOCUS 在两个独立的选项卡中提供了两种类型的推荐，如下图所示。到第一个选项卡时，它会显示一个 API 调用的排序列表，而到第二个选项卡时，它会显示真正的代码片段。注意，FOCUS 工具只提供和展示推荐信息，是否集成推荐的 API 或源代码完全由开发人员自行决定。在 FOCUS 提供建议后，开发人员可以通过复制和粘贴推荐的代码片段到编辑窗口来将代码嵌入到 IDE 中。
 
 <p align="center">
 <img src="https://github.com/crossminer/FOCUS/blob/master/images/FOCUS_IDE.png" width="850">
 </p>
 
-The following figure show an incomplete method declaration:
+下图显示了一个不完整的方法声明：
 
 <p align="center">
 <img src="https://github.com/crossminer/FOCUS/blob/master/images/OriginalDeclaration.png" width="550">
 </p>
 
-and the figure below is the final declaration:
+下图为最终的方法声明：
 
 <p align="center">
 <img src="https://github.com/crossminer/FOCUS/blob/master/images/FinalDeclaration.png" width="550">
 </p>
 
-FOCUS provides the following code snippet as recommendation for the incomplete declaration:
+FOCUS 提供了以下代码片段作为不完整声明的推荐：
 
 <p align="center">
 <img src="https://github.com/crossminer/FOCUS/blob/master/images/RecommendedCode.png" width="550">
 </p>
 
-More examples of code snippets provided by FOCUS are available at the following link: [https://mdegroup.github.io/FOCUS-Appendix/tasks.html](https://mdegroup.github.io/FOCUS-Appendix/tasks.html)
+以下链接展示了 FOCUS 提供的更多代码片段示例：[click here](https://mdegroup.github.io/FOCUS-Appendix/tasks.html)
 
-## Extension in the TSE submission
+## TSE 提交相关
 
-We designed and implemented FOCUS as a novel approach to provide developers with API calls and soure code while they are programming. The system works on the basis of a context-aware collaborative filtering technique to extract API usages from OSS projects. In the TSE submission, we demonstrate the suitability of FOCUS for Android programming by evaluating it on a dataset of 2,600 apps. The experimental results demonstrate that our approach outperforms the state-of-the-art approach PAM concerning success rate, accuracy, and execution time. More importantly, we show that FOCUS efficiently recommends source code to a method declaration being developed. We also find out that there is no subtle relationship between the categories for apps defined in Google Play and their API usages.
+在 TSE 提交的文件中，通过对 2600 个应用程序的数据集进行评估来证明 FOCUS 对 Android 编程的适用性。实验结果表明，FOCUS 在成功率、准确率和执行时间方面都优于最先进的方法 PAM。更重要的是，FOCUS 能有效地向正在开发的方法声明推荐源代码。作者还发现在 Google Play 中定义的应用程序类别和它们的 API 使用之间没有微妙的关系。
 
-The metadata parsed for a dataset consisting of 2,600 Android apps is stored in the [following folder](./dataset/TSE). We acknowledge the original data collected from the AndroidTimeMachine [platform](https://androidtimemachine.github.io/).
+包含 2600 个 Android 应用程序的数据集解析的元数据存储在以下文件夹中：[dataset/TSE](./dataset/TSE)。
 
-A pre-print of the TSE paper is available in [Arxiv](https://arxiv.org/pdf/2102.07508.pdf).
+收集的原始数据来自 [AndroidTimeMachine](https://androidtimemachine.github.io/) 平台。
 
-## How to cite
-If you find our work useful for your research, please cite the papers using the following BibTex entries:
+## 如何引用本文
+使用以下 BibTex 条目：
 
 ```
 @inproceedings{Nguyen:2019:FRS:3339505.3339636,
@@ -111,6 +111,6 @@ If you find our work useful for your research, please cite the papers using the 
   doi={10.1109/TSE.2021.3059907}}
 ```
 
-## Troubleshooting
+## 答疑
 
-If you encounter any difficulties in working with the tool or the datasets, please do not hesitate to contact us at one of the following emails: phuong.nguyen@univaq.it, juri.dirocco@univaq.it. We will try our best to answer you as soon as possible.
+如果对数据集或工具有疑惑的地方，可以联系：`phuong.nguyen@univaq.it`，`juri.dirocco@univaq.it`。 
