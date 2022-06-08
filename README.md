@@ -1,36 +1,37 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2550379.svg)](https://doi.org/10.5281/zenodo.2550379)
 
-# FOCUS
+## FOCUS
 
-This repository contains the source code implementation of FOCUS and the datasets used to replicate the experimental results of our paper accepted by the IEEE Transactions on Software Engineering:
+- 该存储库包含 FOCUS 的源码实现，以及用于复现论文实验结果的数据集。
+- 论文题目：_Recommending API Function Calls and Code Snippets to Support Software Development (2021 TSE)_
+- 作者: _Phuong T. Nguyen, Juri Di Rocco, Claudio Di Sipio, Davide Di Ruscio, and Massimiliano Di Penta_
+- 访问链接：[Arxiv](https://arxiv.org/pdf/2102.07508.pdf)
+- 实验相关的说明：[click here](https://github.com/crossminer/FOCUS/blob/master/README.pdf)
+- FOCUS 已经成功集成到 Eclipse IDE 中，在编程时推荐 API。如何安装插件：[click here](https://mdegroup.github.io/FOCUS-Appendix/install.html)
+- 注：是下述文章的扩展，其被 2019 ICSE 所接收和发表。
+  - 论文题目：_FOCUS: A Recommender System for Mining API Function Calls and Usage Patterns (2019 ICSE)_
+  - 作者：_Phuong T. Nguyen, Juri Di Rocco, Davide Di Ruscio, Lina Ochoa, Thomas Degueule, and Massimiliano Di Penta_
+  - 访问链接：[click here](https://hal.archives-ouvertes.fr/hal-02023023/document)
+  - 注：该论文获得了 _ICSE 2019 Artifact Evaluation Track_ 颁发的 **Artifacts Available** 和 **Artifacts Evaluated** 两个徽章，这意味着所有相关工件都被正确地文档化了，并且它们是一致的、完整的和可复现的，有助于未来的重用和再生产。
 
-_Recommending API Function Calls and Code Snippets to Support Software Development_
+## 仓库结构
 
-Authors: Phuong T. Nguyen, Juri Di Rocco, Claudio Di Sipio, Davide Di Ruscio, and Massimiliano Di Penta
+- [dataset](./dataset) 目录包含用来评估 FOCUS 的数据集。
+  - [jars](./dataset/jars)：从 Maven Central 获取的 3,600 个 jar 文件（ MV<sub>L</sub> 的原始数据集 ）
+  - [MV_L](./dataset/MV_L)：MV<sub>L</sub>（ 从 3,600 个 jar 文件中提取 ）
+  - [MV_S](./dataset/MV_S)：MV<sub>S</sub>（ 从 1,600 个 jar 文件中提取 ）
+  - [SH_L](./dataset/SH_L)：SH<sub>L</sub>（ 从 610 个 GitHub 项目源码中提取 ）
+  - [SH_S](./dataset/SH_S)：SH<sub>S</sub>（ 从 200 个 GitHub 项目源码中提取 ）
+- [tools](./tools) 目录包含开发的不同工具的实现。
+  - [Focus](./tools/Focus)：FOCUS 的 Java 实现。
+  - [FocusRascal](./tools/FocusRascal)：使用 [Rascal](https://www.rascal-mpl.org/) 编写的工具，可以实现（1）将原始的 Java 源码和二进制代码转换为 FOCUS 和 PAM 能处理的数据；（2）检索具体的 Java 使用模式。
+  - [PAM](./tools/PAM)：用于比较 FOCUS 和 PAM 的 Python 脚本。
 
-A pre-print is available in [Arxiv](https://arxiv.org/pdf/2102.07508.pdf).
+__Note<sup>1</sup>__：通过 [Software Heritage archive](https://www.softwareheritage.org/) 从 GitHub 检索到的 5147 个 Java 项目的[存档](https://annex.softwareheritage.org/public/dataset/vault-crossminer/856749_done_with_origins.txt.gz)。
 
-which is an extension of the following paper, which has been accepted and published in the Proceedings of the 41st International Conference on Software Engineering (ICSE 2019):
+__Note<sup>2</sup>__：按照 [Focus](./tools/Focus) 目录中的说明，可以重现论文中给出的结果。
 
-_FOCUS: A Recommender System for Mining API Function Calls and Usage Patterns_
-
-Authors: Phuong T. Nguyen, Juri Di Rocco, Davide Di Ruscio, Lina Ochoa, Thomas Degueule, and Massimiliano Di Penta
-
-A pre-print version of the paper is available [here](https://hal.archives-ouvertes.fr/hal-02023023/document).
-
-The conference paper has been awarded two badges by the ICSE 2019 Artifact Evaluation Track, namely "Artifacts Available" and "Artifacts Evaluated." This means that all the related artifacts have been properly documented, and they are consistent, complete, and reproducible. Furthermore, they include appropriate evidence to facilitate future reuse and reproduction. We also strictly
-adhere to norms and standards of the research community for artifacts of this type.
-
-<p align="center">
-<img src="https://github.com/crossminer/FOCUS/blob/master/Badges.png" width="250">
-</p>
-
-A detailed instruction on how to experiment the artifacts is provided [here](https://github.com/crossminer/FOCUS/blob/master/README.pdf).
-
-Furthermore, FOCUS has been successfully integrated into the Eclipse IDE, allowing one to invoke API recommendations while they are programming. You can find a detailed instruction on how to install the IDE in the following [link](https://mdegroup.github.io/FOCUS-Appendix/install.html).
-
-
-## Introduction
+## 引言
 
 FOCUS is a context-aware collaborative-filtering recommendation system that exploits cross relationships among OSS projects to suggest the inclusion of additional API invocations and concrete API usage patterns. The current implementation targets Java code specifically.
 
@@ -40,7 +41,7 @@ Our collaborative-filtering recommendation system attempts to narrow down the se
 
 We incorporate these ideas in a new context-aware collaborative filtering recommender system that mines OSS repositories to provide developers with API **F**uncti**O**n **C**alls and **US**age patterns: FOCUS. Our approach employs a new model to represent mutual relationships between projects and collaboratively mines API usage from the most similar projects.
 
-## Examples of FOCUS recommendations
+## FOCUS 推荐示例
 
 By means of the IDE, FOCUS provides two main types of recommendations in two separate tabs as shown in the picture below. By the first tab, it displays a ranked list of API calls while by the second tab, there are real snippets of code. As a matter of fact, our tool only provides and presents recommendations, and integrating the recommended APIs or source code is purely at the developers' discretion, i.e., they will decide whether and how to adopt the recommended API calls and/or code snippets. With the recommendations provided by FOCUS, developers can embed into their IDE by copying and pasting fragments of the recommended code into the editing window.
 
@@ -75,27 +76,6 @@ We designed and implemented FOCUS as a novel approach to provide developers with
 The metadata parsed for a dataset consisting of 2,600 Android apps is stored in the [following folder](./dataset/TSE). We acknowledge the original data collected from the AndroidTimeMachine [platform](https://androidtimemachine.github.io/).
 
 A pre-print of the TSE paper is available in [Arxiv](https://arxiv.org/pdf/2102.07508.pdf).
-
-
-## Repository Structure
-
-This repository is organized as follows:
-
-* The [tools](./tools) directory contains the implementation of the different tools we developed:
-	* [Focus](./tools/Focus): The Java implementation of FOCUS
-	* [FocusRascal](./tools/FocusRascal): A set of tools written in [Rascal](https://www.rascal-mpl.org/) that are used to (i) transform raw Java source and binary code into FOCUS-processable and PAM-processable data (ii) retrieve concrete Java usage patterns
-	* [PAM](./tools/PAM): A set of Python scripts allowing to compare our approach to PAM
-* The [dataset](./dataset) directory contains the datasets described in the paper that we use to evaluate FOCUS:
-	* [jars](./dataset/jars): 3,600 JAR files extracted from Maven Central (the raw MV<sub>L</sub> dataset)
-	* [MV_L](./dataset/MV_L): meta-data of the MV<sub>L</sub> dataset (extracted from 3,600 JAR files)
-	* [MV_S](./dataset/MV_S): meta-data of the MV<sub>S</sub> dataset (extracted from 1,600 JAR files)
-	* [SH_L](./dataset/SH_L): meta-data of the SH<sub>L</sub> dataset (extracted from the source code of 610 GitHub projects)
-	* [SH_S](./dataset/SH_S): meta-data of the SH<sub>S</sub> dataset (extracted from the source code of 200 GitHub projects)
-
-__Note<sup>1</sup>__: the archive of 5,147 Java projects retrieved from GitHub via the [Software Heritage](https://www.softwareheritage.org/) archive is available at [this url](https://annex.softwareheritage.org/public/dataset/vault-crossminer/856749_done_with_origins.txt.gz).
-
-__Note<sup>2</sup>__: The results presented in the paper can be reproduced following the instructions contained in the [Focus](./tools/Focus) directory.
-
 
 ## How to cite
 If you find our work useful for your research, please cite the papers using the following BibTex entries:
